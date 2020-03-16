@@ -609,7 +609,7 @@ def get_objects_for_user(user, perms, klass=None, use_groups=True, any_perm=Fals
                 obj_codenames = {e[1] for e in group}
                 if codenames.issubset(obj_codenames):
                     pk_list.append(pk)
-            objects = queryset.filter(pk__in=pk_list)
+            objects = queryset.filter(pk__in=list(pk_list))
             return objects
 
     if not any_perm and len(codenames) > 1:
@@ -629,7 +629,7 @@ def get_objects_for_user(user, perms, klass=None, use_groups=True, any_perm=Fals
         field_pk = 'obj_pk'
 
     values = values.values_list(field_pk, flat=True)
-    q = Q(pk__in=values)
+    q = Q(pk__in=list(values))
     if use_groups:
         field_pk = group_fields[0]
         values = groups_obj_perms_queryset
@@ -639,7 +639,7 @@ def get_objects_for_user(user, perms, klass=None, use_groups=True, any_perm=Fals
             )
             field_pk = 'obj_pk'
         values = values.values_list(field_pk, flat=True)
-        q |= Q(pk__in=values)
+        q |= Q(pk__in=list(values))
 
     return queryset.filter(q)
 
