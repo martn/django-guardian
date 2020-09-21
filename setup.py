@@ -3,16 +3,16 @@ from setuptools import setup
 from extras import RunFlakesCommand
 
 
-version = '2.2.0'
+version = '1.5.0'
 
 readme_file = os.path.join(os.path.dirname(__file__), 'README.rst')
-with open(readme_file) as f:
+with open(readme_file, 'r') as f:
     long_description = f.read()
 
 setup(
     name='django-guardian',
     version=version,
-    python_requires='>=3.5',
+    setup_requires=['pytest-runner', ],
     url='http://github.com/django-guardian/django-guardian',
     author='Lukasz Balcerzak',
     author_email='lukaszbalcerzak@gmail.com',
@@ -28,24 +28,25 @@ setup(
     ],
     include_package_data=True,
     license='BSD',
-    install_requires=["Django>=2.1"],
+    install_requires=[],
     tests_require=['mock', 'django-environ', 'pytest', 'pytest-django'],
     classifiers=['Development Status :: 5 - Production/Stable',
                  'Environment :: Web Environment',
                  'Framework :: Django',
+                 'Framework :: Django :: 1.11',
+                 'Framework :: Django :: 2.0',
                  'Framework :: Django :: 2.1',
                  'Framework :: Django :: 2.2',
-                 'Framework :: Django :: 3.0',
                  'Intended Audience :: Developers',
                  'License :: OSI Approved :: BSD License',
                  'Operating System :: OS Independent',
                  'Programming Language :: Python',
                  'Topic :: Security',
+                 'Programming Language :: Python :: 2.7',
+                 'Programming Language :: Python :: 3.4',
                  'Programming Language :: Python :: 3.5',
                  'Programming Language :: Python :: 3.6',
                  'Programming Language :: Python :: 3.7',
-                 'Programming Language :: Python :: 3.8',
-                 'Programming Language :: Python :: 3 :: Only',
                  ],
     test_suite='tests.main',
     cmdclass={'flakes': RunFlakesCommand},
